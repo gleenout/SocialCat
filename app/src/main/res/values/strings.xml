@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">SocialCat</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_auth">AuthActivity</string>
+
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Senha</string>
+    <string name="login">Login</string>
+    <string name="register">Registrar</string>
+    <string name="name_hint">Nome</string>
+    <string name="no_account_register">Não tem uma conta? <u>Registrar-se</u></string>
+    <string name="back">Voltar</string>
+    <string name="title_activity_home2">HomeActivity2</string>
+    <string name="title_feed">Feed</string>
+    <string name="title_camera">Câmera</string>
+    <string name="title_profile">Perfil</string>
+    <string name="bt_notification">Notificação Teste</string>
+    <string name="bt_location">Localização Teste</string>
+    <string name="descriptionProfile">Foto de Perfil</string>
+    <string name="nameUser">Usuário</string>
+    <string name="emailUsuario">usuario@socialcat.com</string>
+    <string name="bt_editar_perfil">Editar Perfil</string>
+
+    <string name="already_have_account_login">Já tem uma conta? Entre</string>
+
+
+</resources>

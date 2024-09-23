@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="pinkassent">#FF69B4</color>
+    <color name="colorPrimary">#F8BBD0</color>
+    <color name="colorPrimaryDark">#C2185B</color>
+    <color name="colorPrimaryLight">#FCE4EC</color>
+    <color name="colorSecondary">#FFC1E3</color>
+    <color name="colorAccent">#EC407A</color>
+    <color name="colorTextPrimary">#212121</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorButtonText">#FFFFFF</color>
+    <color name="pinkassent_background">#FFC0CB</color>
+    <color name="dark_form_background">#2B2B2B</color>
+    <color name="dark_button_background">#8B008B</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>
