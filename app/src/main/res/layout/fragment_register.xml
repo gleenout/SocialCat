@@ -3,62 +3,78 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="?android:attr/windowBackground">
+    android:padding="24dp"
+    android:background="?android:attr/colorBackground">
 
-    <!-- Logo -->
-    <ImageView
-        android:id="@+id/logoImageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+    <!-- Logo com CardView para efeito de elevação -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/logoContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:src="@drawable/socialcat_icone"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/app_name" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Register Title -->
+        <ImageView
+            android:id="@+id/logoImageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:padding="8dp"
+            android:src="@drawable/socialcat_icone"
+            android:contentDescription="@string/app_name" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Register Title com estilo Material 3 -->
     <TextView
         android:id="@+id/registerTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register"
-        android:textSize="24sp"
+        android:textSize="28sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/logoImageView"
+        android:textColor="?attr/colorOnBackground"
+        app:layout_constraintTop_toBottomOf="@id/logoContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="24dp" />
 
-    <!-- Name Input -->
+    <!-- Name Input com Material 3 -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toBottomOf="@id/registerTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:startIconDrawable="@drawable/ic_person"
+        app:startIconTint="?attr/colorPrimary"
         android:hint="@string/name_hint">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nameEditText"
+            android:id="@+id/registerUsernameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:autofillHints="name" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Email Input -->
+    <!-- Email Input com Material 3 -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/registerEmailInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toBottomOf="@id/nameInputLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:startIconDrawable="@drawable/ic_email"
+        app:startIconTint="?attr/colorPrimary"
         android:hint="@string/email_hint">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -69,15 +85,19 @@
             android:autofillHints="emailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Password Input -->
+    <!-- Password Input com Material 3 -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/registerPasswordInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toBottomOf="@id/registerEmailInputLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:startIconDrawable="@drawable/ic_lock"
+        app:startIconTint="?attr/colorPrimary"
+        app:endIconMode="password_toggle"
         android:hint="@string/password_hint">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -88,28 +108,30 @@
             android:autofillHints="password" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Register Button com Material 3 -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/registerButton"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/register"
+        android:textSize="16sp"
+        app:cornerRadius="12dp"
+        app:layout_constraintTop_toBottomOf="@id/registerPasswordInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Login Text com Material 3 -->
     <TextView
         android:id="@+id/loginText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/already_have_account_login"
-        android:textSize="14sp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/registerButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
-    <!-- Register Button -->
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/register"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/pinkassent"
         android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@id/registerPasswordInputLayout"
+        android:text="@string/already_have_account_login"
+        android:textSize="16sp"
+        android:textColor="?attr/colorPrimary"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@id/registerButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

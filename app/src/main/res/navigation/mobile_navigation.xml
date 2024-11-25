@@ -5,60 +5,92 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
 
+    <!-- Fragment do Feed (Tela principal) -->
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.kyolili.socialcat.ui.feed.FeedFragment"
         android:label="@string/title_feed"
-        tools:layout="@layout/fragment_feed" >
+        tools:layout="@layout/fragment_feed">
+        <!-- Ação que permite navegar do feed para a tela de detalhes -->
         <action
             android:id="@+id/action_navigation_home_to_postDetailFragment"
-            app:destination="@id/postDetailFragment" />
+            app:destination="@id/postDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
+    <!-- Fragment do Perfil -->
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.kyolili.socialcat.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 
+    <!-- Fragment da Câmera -->
     <fragment
         android:id="@+id/navigation_camera"
         android:name="com.kyolili.socialcat.ui.camera.CameraFragment"
         android:label="@string/title_camera"
         tools:layout="@layout/fragment_camera">
+        <!-- Ação que permite navegar da câmera para o preview -->
         <action
             android:id="@+id/action_cameraFragment_to_previewFragment"
-            app:destination="@id/previewFragment" />
+            app:destination="@id/previewFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
+    <!-- Fragment de Preview -->
     <fragment
         android:id="@+id/previewFragment"
         android:name="com.kyolili.socialcat.ui.camera.PreviewFragment"
         android:label="Postar"
         tools:layout="@layout/fragment_preview">
+        <!-- Argumento necessário para o preview -->
         <argument
             android:name="imageUri"
             app:argType="string" />
     </fragment>
 
+    <!-- Fragment de Detalhes do Post -->
     <fragment
         android:id="@+id/postDetailFragment"
         android:name="com.kyolili.socialcat.ui.feed.PostDetailFragment"
         android:label="Detalhes do Post"
-        tools:layout="@layout/fragment_post_detail" >
+        tools:layout="@layout/fragment_post_detail">
+        <!-- Argumentos que são passados para a tela de detalhes -->
         <argument
             android:name="username"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true" />
         <argument
             android:name="description"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true" />
         <argument
             android:name="time"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true" />
         <argument
-            android:name="imageResId"
-            app:argType="integer" />
+            android:name="imageUri"
+            app:argType="string"
+            app:nullable="true" />
+
+        <!-- Ação para navegar para o EditPostFragment -->
+        <action
+            android:id="@+id/action_postDetailFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
     </fragment>
 
+    <!-- Fragment de Edição de Post -->
+    <fragment
+        android:id="@+id/editPostFragment"
+        android:name="com.kyolili.socialcat.ui.feed.EditPostFragment"
+        android:label="Editar Post"
+        tools:layout="@layout/fragment_edit_post" />
 
 </navigation>

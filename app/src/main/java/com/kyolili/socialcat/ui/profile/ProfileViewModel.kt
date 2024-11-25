@@ -1,28 +1,99 @@
 package com.kyolili.socialcat.ui.profile
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.kyolili.socialcat.R
+import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class ProfileViewModel : ViewModel() {
+    private val auth = FirebaseAuth.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
 
-    // Dados fictícios do perfil
-    private val _userName = MutableLiveData<String>().apply { value = "Usuário" }
-    val userName: LiveData<String> get() = _userName
+    private val _userName = MutableLiveData<String>()
+    val userName: LiveData<String> = _userName
 
-    private val _userEmail = MutableLiveData<String>().apply { value = "usuario@socialcat.com" }
-    val userEmail: LiveData<String> get() = _userEmail
+    private val _userEmail = MutableLiveData<String>()
+    val userEmail: LiveData<String> = _userEmail
 
-    private val _profilePicture = MutableLiveData<Int>().apply { value = R.drawable.bl_account_circle }
-    val profilePicture: LiveData<Int> get() = _profilePicture
+    private val _photoUrl = MutableLiveData<String>()
+    val photoUrl: LiveData<String> = _photoUrl
 
-    // Métodos para atualizar dados fictícios (implementação futura)
-    fun updateUserName(newName: String) {
-        _userName.value = newName
+    init {
+        loadUserData()
     }
 
-    fun updateUserEmail(newEmail: String) {
-        _userEmail.value = newEmail
+    private fun loadUserData() {
+        val user = auth.currentUser
+        _userName.value = user?.displayName ?: "Usuário"
+        _userEmail.value = user?.email ?: ""
+        _photoUrl.value = user?.photoUrl?.toString()
+    }
+
+    fun updateProfile(newName: String, newEmail: String, onComplete: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val user = auth.currentUser
+
+                // Atualiza email se foi alterado
+                if (newEmail != user?.email) {
+                    user?.updateEmail(newEmail)?.await()
+                }
+
+                // Atualiza nome no Auth
+                val profileUpdates = UserProfileChangeRequest.Builder()
+                    .setDisplayName(newName)
+                    .build()
+                user?.updateProfile(profileUpdates)?.await()
+
+                // Atualiza dados no Firestore
+                firestore.collection("users")
+                    .document(user?.uid ?: "")
+                    .update(mapOf(
+                        "name" to newName,
+                        "email" to newEmail
+                    )).await()
+
+                // Atualiza LiveData
+                _userName.value = newName
+                _userEmail.value = newEmail
+
+                onComplete(true)
+            } catch (e: Exception) {
+                onComplete(false)
+            }
+        }
+    }
+
+    fun updateProfilePhoto(photoUrl: String, onComplete: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val user = auth.currentUser
+
+                // Atualiza foto no Auth
+                val profileUpdates = UserProfileChangeRequest.Builder()
+                    .setPhotoUri(Uri.parse(photoUrl))
+                    .build()
+                user?.updateProfile(profileUpdates)?.await()
+
+                // Atualiza foto no Firestore
+                firestore.collection("users")
+                    .document(user?.uid ?: "")
+                    .update("photoUrl", photoUrl)
+                    .await()
+
+                // Atualiza LiveData
+                _photoUrl.value = photoUrl
+
+                onComplete(true)
+            } catch (e: Exception) {
+                onComplete(false)
+            }
+        }
     }
 }

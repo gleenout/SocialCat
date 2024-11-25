@@ -26,7 +26,11 @@
     <string name="emailUsuario">usuario@socialcat.com</string>
     <string name="bt_editar_perfil">Editar Perfil</string>
 
-    <string name="already_have_account_login">Já tem uma conta? Entre</string>
+    <string name="already_have_account_login">Já tem uma conta? <u>Entre</u></string>
+    <string name="forgot_password">Esqueceu a senha?</string>
+    <string name="versao_app">Versão 1.0</string>
+    <string name="splash_subtitle">Conectando amantes de gatos</string>
+    <string name="options_menu">Menu de opções</string>
 
 
 </resources>

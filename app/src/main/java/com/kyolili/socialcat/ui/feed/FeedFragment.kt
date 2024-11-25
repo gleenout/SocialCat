@@ -8,18 +8,24 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.kyolili.socialcat.R
-import com.kyolili.socialcat.adapter.FeedAdapter
 import com.kyolili.socialcat.databinding.FragmentFeedBinding
 import com.kyolili.socialcat.model.Post
+import com.kyolili.socialcat.adapter.FeedAdapter
 
 class FeedFragment : Fragment() {
 
     private var _binding: FragmentFeedBinding? = null
     private val binding get() = _binding!!
+    private val firestore = FirebaseFirestore.getInstance()
+    private val posts = mutableListOf<Post>()
+    private lateinit var adapter: FeedAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFeedBinding.inflate(inflater, container, false)
@@ -29,35 +35,78 @@ class FeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Simulação de posts fictícios
-        val posts = listOf(
-            Post("Ana C.", R.drawable.ic_profile, R.drawable.ic_launcher_foreground, "Lorem ipsum dolor sit amet.", "1hr ago"),
-            Post("Bruna S.", R.drawable.ic_profile, R.drawable.ic_launcher_foreground, "Lorem ipsum dolor sit amet.", "2hr ago"),
-            Post("Joyce C.", R.drawable.ic_profile, R.drawable.ic_launcher_foreground, "Lorem ipsum dolor sit amet.", "3hr ago"),
-            Post("Adam W.", R.drawable.ic_profile, R.drawable.ic_launcher_foreground, "Lorem ipsum dolor sit amet.", "4hr ago"),
-            Post("Carol A.", R.drawable.ic_profile, R.drawable.ic_launcher_foreground, "Lorem ipsum dolor sit amet.", "1hr ago"),
-            Post("Sauro B.", R.drawable.ic_profile, R.drawable.ic_launcher_foreground, "Lorem ipsum dolor sit amet.", "2hr ago"),
-            Post("Carlos J.", R.drawable.ic_profile, R.drawable.ic_launcher_foreground, "Lorem ipsum dolor sit amet.", "3hr ago"),
-            Post("Weslley A.", R.drawable.ic_profile, R.drawable.ic_launcher_foreground, "Lorem ipsum dolor sit amet.", "4hr ago")
-        )
+        setupRecyclerView()
+        fetchPostsFromFirestore()
+    }
 
-        // Configurar o RecyclerView com GridLayoutManager (2 colunas)
-        val adapter = FeedAdapter(posts) { post ->
-            // Navegar para o fragment de detalhes ao clicar no post
-            val bundle = Bundle().apply {
-                putString("username", post.username)
-                putString("description", post.description)
-                putString("time", post.time)
-                putInt("imageResId", post.postImage)
-            }
-            findNavController().navigate(R.id.action_navigation_home_to_postDetailFragment, bundle)
+    private fun setupRecyclerView() {
+        adapter = FeedAdapter(posts) { post ->
+            navigateToPostDetails(post)
         }
 
         binding.recyclerViewFeed.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.recyclerViewFeed.adapter = adapter
+    }
 
-        // Verificar se o RecyclerView está sendo chamado
-        Log.d("FeedFragment", "RecyclerView configurado")
+    private fun navigateToPostDetails(post: Post) {
+        try {
+            val bundle = Bundle().apply {
+                putString("postId", post.id)
+                putString("username", post.username)
+                putString("description", post.description)
+                putString("time", post.time)
+                putString("imageUri", post.postImage)
+                putInt("likes", post.likes)
+            }
+            findNavController().navigate(R.id.action_navigation_home_to_postDetailFragment, bundle)
+        } catch (e: Exception) {
+            Log.e("FeedFragment", "Erro ao navegar para os detalhes do post", e)
+        }
+    }
+
+    private fun fetchPostsFromFirestore() {
+        firestore.collection("posts")
+            .orderBy("timestamp", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                processFetchedPosts(querySnapshot.documents)
+            }
+            .addOnFailureListener { exception ->
+                Log.e("FeedFragment", "Erro ao buscar posts", exception)
+            }
+    }
+
+    private fun processFetchedPosts(documents: List<com.google.firebase.firestore.DocumentSnapshot>) {
+        try {
+            posts.clear()
+            for (document in documents) {
+                val post = Post(
+                    id = document.id,
+                    username = document.getString("username") ?: "Usuário",
+                    profileImage = R.drawable.ic_person,
+                    postImage = document.getString("imageUri").orEmpty(),
+                    description = document.getString("description").orEmpty(),
+                    time = formatTimestamp(document.getLong("timestamp") ?: System.currentTimeMillis()),
+                    likes = (document.get("likes") as? Long ?: 0).toInt(),
+                    likedBy = document.get("likedBy") as? List<String> ?: listOf()
+                )
+                posts.add(post)
+            }
+            adapter.notifyDataSetChanged()
+        } catch (e: Exception) {
+            Log.e("FeedFragment", "Erro ao processar posts", e)
+        }
+    }
+
+    private fun formatTimestamp(timestamp: Long): String {
+        val currentTime = System.currentTimeMillis()
+        val diff = currentTime - timestamp
+        return when {
+            diff < 60000 -> "Agora"
+            diff < 3600000 -> "${diff / 60000}m"
+            diff < 86400000 -> "${diff / 3600000}h"
+            else -> "${diff / 86400000}d"
+        }
     }
 
     override fun onDestroyView() {

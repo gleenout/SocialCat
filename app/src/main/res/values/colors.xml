@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="pinkassent">#FF69B4</color>
-    <color name="colorPrimary">#F8BBD0</color>
-    <color name="colorPrimaryDark">#C2185B</color>
     <color name="colorPrimaryLight">#FCE4EC</color>
-    <color name="colorSecondary">#FFC1E3</color>
     <color name="colorAccent">#EC407A</color>
     <color name="colorTextPrimary">#212121</color>
-    <color name="colorBackground">#FFFFFF</color>
     <color name="colorButtonText">#FFFFFF</color>
     <color name="pinkassent_background">#FFC0CB</color>
     <color name="dark_form_background">#2B2B2B</color>
     <color name="dark_button_background">#8B008B</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+
+    <!-- Light Theme Colors -->
+    <color name="pinkassent">#FF69B4</color>
+    <color name="colorPrimary">#EC407A</color>
+    <color name="colorPrimaryDark">#C2185B</color>
+    <color name="colorPrimaryContainer">#FFD9E3</color>
+    <color name="colorOnPrimaryContainer">#3B1D25</color>
+    <color name="colorSecondary">#9C27B0</color>
+    <color name="colorSecondaryContainer">#FFD6F9</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnSurface">#1C1B1F</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorOnBackground">#1C1B1F</color>
+
+    <!-- Dark Theme Colors -->
+    <color name="colorPrimary_dark">#FFB1C8</color>
+    <color name="colorPrimaryContainer_dark">#633B48</color>
+    <color name="colorOnPrimaryContainer_dark">#FFD9E3</color>
+    <color name="colorSecondary_dark">#E9B3FF</color>
+    <color name="colorSecondaryContainer_dark">#702F8A</color>
+    <color name="colorSurface_dark">#1C1B1F</color>
+    <color name="colorOnSurface_dark">#E6E1E5</color>
+    <color name="colorBackground_dark">#1C1B1F</color>
+    <color name="colorOnBackground_dark">#E6E1E5</color>
 </resources>

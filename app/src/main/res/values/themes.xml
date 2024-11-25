@@ -1,20 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme -->
-    <style name="Theme.SocialCat" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Cor de Fundo -->
-        <item name="android:colorBackground">@color/colorBackground</item>
-        <!-- Cor Primária e Acentuada -->
+    <style name="Theme.SocialCat" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Cores do Material3 -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryContainer">@color/colorPrimaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/colorOnPrimaryContainer</item>
         <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <!-- Texto -->
-        <item name="android:textColor">@color/colorTextPrimary</item>
-        <!-- Botões -->
-        <item name="buttonStyle">@style/Widget.MaterialComponents.Button.OutlinedButton</item>
-        <item name="android:buttonTint">@color/colorAccent</item>
+        <item name="colorSecondaryContainer">@color/colorSecondaryContainer</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+
+        <!-- Status bar e navegação -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- Configurações de texto -->
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.Material3.BodyLarge</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.Material3.TitleLarge</item>
     </style>
     <style name="Theme.SocialCat.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.SocialCat.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="App.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">?attr/colorPrimaryContainer</item>
+    </style>
 </resources>

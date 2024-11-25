@@ -11,10 +11,24 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/optionsLayout"
+        app:layout_constraintBottom_toTopOf="@id/descriptionEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:scaleType="centerCrop"/>
+
+    <!-- Caixa de descrição -->
+    <EditText
+        android:id="@+id/descriptionEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Adicione uma descrição..."
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@id/optionsLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Layout para botões de ações -->
     <LinearLayout

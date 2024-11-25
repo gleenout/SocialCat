@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,28 +14,63 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp"/>
+        android:layout_margin="16dp" />
 
-    <!-- Nome de usuário -->
-    <TextView
-        android:id="@+id/usernameTextView"
-        android:layout_width="wrap_content"
+    <!-- Container para username, like e opções -->
+    <LinearLayout
+        android:id="@+id/usernameAndOptionsContainer"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="18sp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/postImageView"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="16dp"/>
-
-    <!-- Ícone de coração -->
-    <ImageView
-        android:id="@+id/heartIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_heart_border"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/usernameTextView"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp">
+
+        <!-- Nome de usuário -->
+        <TextView
+            android:id="@+id/usernameTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="18sp" />
+
+        <!-- Container para like -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Ícone de coração -->
+            <ImageView
+                android:id="@+id/heartIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_heart_border"
+                android:layout_marginEnd="8dp" />
+
+            <!-- Contador de likes -->
+            <TextView
+                android:id="@+id/likesCountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Menu de opções (Editar/Apagar) -->
+        <ImageView
+            android:id="@+id/optionsMenuIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_more_vert"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/options_menu" />
+    </LinearLayout>
 
     <!-- Descrição da postagem -->
     <TextView
@@ -44,9 +80,9 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/usernameTextView"
+        app:layout_constraintTop_toBottomOf="@id/usernameAndOptionsContainer"
         android:padding="16dp"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 
     <!-- Tempo da postagem -->
     <TextView
@@ -57,6 +93,6 @@
         app:layout_constraintTop_toBottomOf="@id/postDescriptionTextView"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
